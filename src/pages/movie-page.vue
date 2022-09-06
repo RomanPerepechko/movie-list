@@ -10,7 +10,9 @@
             <span>Назад к списку</span>
         </div>
         <movie-card v-if="movie" :movie="movie"></movie-card>
-        <loader v-if="isLoading"></loader>
+        <div class="movie-page__loader-container">
+            <loader v-if="isLoading"></loader>
+        </div>
         <span class="movie-page__error" v-if="!isLoading && !movie">К сожалению, по вашему запросу ничего не найдено...</span>
     </div>
 </template>
@@ -107,6 +109,13 @@ export default {
         font-size: 32px;
         line-height: 32px;
         color: #FFFFFF;
+    }
+
+    &__loader-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
     }
 }
 </style>
