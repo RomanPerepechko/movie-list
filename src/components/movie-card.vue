@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-card">
+  <div class="movie-card" :class="{'in-movie-list':$route.path ==='/movies'}">
 
     <div class="movie-card__poster">
       <div class="movie-card__poster-wrapper"
@@ -8,7 +8,7 @@
 
     <div class="movie-card__content">
       <div v-if="movie.title && $route.path!='/movies'" class="movie-card__title">{{movie.title}}</div>
-      <div v-if="movie.title && $route.path ==='/movies'" @click="$router.push({path: `movie/${movie.id}`})" class="movie-card__title">{{movie.title}}</div>
+      <div v-if="movie.title && $route.path ==='/movies'" @click="$router.push({path: `movie/${movie.id}`})" class="movie-card__title in-movie-list" >{{movie.title}}</div>
       <div v-if="movie.genres && movie.year" class="movie-card__info">{{`${movie.year}, ${movie.genres.join(', ')}`}}</div>
       <div v-if="movie.directors" class="movie-card__directors">{{`режиссер: ${movie.directors}`}}</div>
       <div v-if="movie.actors" class="movie-card__actors">актеры:<span>{{movie.actors.join(', ')}}</span></div>
@@ -41,6 +41,16 @@ export default {
   margin-bottom: 24px;
   display: flex;
   position: relative;
+  transition: all 0.5s ease-in;
+
+  &.in-movie-list{
+    &:hover{
+      transform: translateY(-8px);
+      box-shadow: 0px 12px 12px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  
 
   &__poster {
     width: 168px;
@@ -73,7 +83,11 @@ export default {
     line-height: 36px;
     color: #FFFFFF;
     margin-bottom: 12px;
-    cursor: pointer;
+    
+
+    &.in-movie-list{
+      cursor: pointer;
+    }
   }
 
   &__info {
