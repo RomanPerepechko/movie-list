@@ -71,6 +71,7 @@ export default {
 
     mounted() {
         this.fetchMovies();
+        console.log(this.$route)
     },
 
     components: {

@@ -19,6 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 .custom-checkbox {
+    cursor: pointer;
     width: 15px;
     height: 15px;
     border: 1px solid #C4C4C4;

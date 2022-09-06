@@ -7,7 +7,8 @@
     </div>
 
     <div class="movie-card__content">
-      <div @click="$router.push({path: `movie/${movie.id}`})" v-if="movie.title" class="movie-card__title">{{movie.title}}</div>
+      <div v-if="movie.title && $route.path!='/movies'" class="movie-card__title">{{movie.title}}</div>
+      <div v-if="movie.title && $route.path ==='/movies'" @click="$router.push({path: `movie/${movie.id}`})" class="movie-card__title">{{movie.title}}</div>
       <div v-if="movie.genres && movie.year" class="movie-card__info">{{`${movie.year}, ${movie.genres.join(', ')}`}}</div>
       <div v-if="movie.directors" class="movie-card__directors">{{`режиссер: ${movie.directors}`}}</div>
       <div v-if="movie.actors" class="movie-card__actors">актеры:<span>{{movie.actors.join(', ')}}</span></div>
@@ -72,6 +73,7 @@ export default {
     line-height: 36px;
     color: #FFFFFF;
     margin-bottom: 12px;
+    cursor: pointer;
   }
 
   &__info {

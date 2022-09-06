@@ -9,8 +9,9 @@
 
             <span>Назад к списку</span>
         </div>
-        <movie-card v-if="movie.title" :movie="movie"></movie-card>
+        <movie-card v-if="movie" :movie="movie"></movie-card>
         <loader v-if="isLoading"></loader>
+        <span class="movie-page__error" v-if="!isLoading && !movie">К сожалению, по вашему запросу ничего не найдено...</span>
     </div>
 </template>
 
@@ -25,7 +26,7 @@ export default {
 
     data(){
         return{
-            movie: {},
+            movie: null,
             isLoading: false,
             prevRoute: null
         }
@@ -43,7 +44,9 @@ export default {
         async fetchMovie(){
             this.isLoading = true;
             let result = await axios.get(`https://floating-sierra-20135.herokuapp.com/api/movie/${this.$route.params.id}`);
-            this.movie = result.data.data;
+            if(result.data.data){
+                this.movie = result.data.data;
+            }
             this.isLoading = false;
         }
     },
@@ -95,6 +98,15 @@ export default {
             text-decoration-line: underline;
             color: rgba(255, 82, 82, 0.98);
         }
+    }
+
+    &__error{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 32px;
+        color: #FFFFFF;
     }
 }
 </style>
