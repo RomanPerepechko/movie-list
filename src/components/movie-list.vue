@@ -4,7 +4,9 @@
             <loader></loader>
         </div>
         <filter-block v-if="movies.length > 0" :filters="filters" @toggle-filter="toggleFilter"></filter-block>
-        <movie-card v-for="movie in movies" :key="movie.id" :movie="movie"></movie-card>
+        <TransitionGroup name="movie" tag="div">
+            <movie-card v-for="movie in movies" :key="movie.id" :movie="movie"></movie-card>
+        </TransitionGroup>
     </div>
 </template>
 
@@ -84,6 +86,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.movie-move,
+.movie-enter-active,
+.movie-leave-active {
+    transition: all 0.5s ease;
+}
+
+.movie-enter-from,
+.movie-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.movie-leave-active {
+    position: absolute;
+}
+
 .movie-list{
     min-height: 100vh;
     height: auto;
